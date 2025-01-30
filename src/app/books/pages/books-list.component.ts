@@ -35,6 +35,8 @@ import { BookStore } from '../services/books.store';
   styles: `
     th {
       @apply bg-accent;
+      width: 20%;
+      min-width: 75px;
     }
 
     th,

@@ -5,6 +5,7 @@ import { BooksStatsComponent } from './pages/books-stats.component';
 import { BooksListComponent } from './pages/books-list.component';
 import { BookStore } from './services/books.store';
 import { BooksDataService } from './services/books.data';
+import { BookListPrefsComponent } from './pages/book-list-prefs.component';
 
 export const BOOKS_ROUTES: Routes = [
   {
@@ -28,6 +29,10 @@ export const BOOKS_ROUTES: Routes = [
       {
         path: 'details',
         component: BookDetailsComponent,
+      },
+      {
+        path: 'prefs',
+        component: BookListPrefsComponent,
       },
     ],
   },

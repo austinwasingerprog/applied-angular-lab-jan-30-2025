@@ -6,12 +6,15 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RouterLink, RouterOutlet, RouterLinkActive],
   template: `
-    <div role="tablist" class="tabs tabs-boxed mb-4">
+    <div role="tablist" class="tabs-boxed mb-4">
       <a role="tab" class="tab" routerLinkActive="tab-active" routerLink="list"
         >Library</a
       >
       <a role="tab" class="tab" routerLinkActive="tab-active" routerLink="stats"
         >Statistics</a
+      >
+      <a role="tab" class="tab" routerLinkActive="tab-active" routerLink="prefs"
+        >Preferences</a
       >
     </div>
     <router-outlet />
