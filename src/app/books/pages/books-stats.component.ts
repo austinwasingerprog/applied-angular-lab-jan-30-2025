@@ -3,10 +3,12 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  inject,
   resource,
 } from '@angular/core';
 import { BookEntity } from '../types/BookEntity';
 import { BooksApiResponse } from '../types/BooksApiResponse';
+import { BookStore } from '../services/books.store';
 
 @Component({
   selector: 'app-books-stats',
@@ -33,30 +35,24 @@ import { BooksApiResponse } from '../types/BooksApiResponse';
   styles: ``,
 })
 export class BooksStatsComponent {
-  books = resource<BookEntity[], unknown>({
-    loader: () =>
-      fetch('/api/books')
-        .then((res) => res.json())
-        .then((r: BooksApiResponse) => r.data),
-  });
-  numberOfBooks = computed(() => this.books.value()?.length || 0);
+  store = inject(BookStore);
+  books = this.store.books;
+  numberOfBooks = computed(() => this.books()?.length || 0);
   earliestYearPublished = computed(
     () =>
-      this.books
-        .value()
+      this.books()
         ?.slice()
         .sort((a, b) => a.year - b.year)?.[0].year,
   );
   latestYearPublished = computed(
     () =>
-      this.books
-        .value()
+      this.books()
         ?.slice()
         .sort((a, b) => b.year - a.year)?.[0].year,
   );
   averageNumberOfPages = computed(() =>
     Math.round(
-      (this.books.value()?.reduce((acc, cur, i) => (acc += cur.year), 0) || 0) /
+      (this.books()?.reduce((acc, cur, i) => (acc += cur.year), 0) || 0) /
         this.numberOfBooks(),
     ),
   );

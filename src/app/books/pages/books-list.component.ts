@@ -1,6 +1,5 @@
-import { Component, ChangeDetectionStrategy, resource } from '@angular/core';
-import { BooksApiResponse } from '../types/BooksApiResponse';
-import { BookEntity } from '../types/BookEntity';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { BookStore } from '../services/books.store';
 
 @Component({
   selector: 'app-books-list',
@@ -8,7 +7,7 @@ import { BookEntity } from '../types/BookEntity';
   imports: [],
   template: `
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-      @for (book of books.value(); track $index) {
+      @for (book of books(); track $index) {
         <div class="card card-compact bg-neutral shadow-xl">
           <div class="card-body">
             <h2 class="card-title italic text-white">{{ book.title }}</h2>
@@ -45,10 +44,6 @@ import { BookEntity } from '../types/BookEntity';
   `,
 })
 export class BooksListComponent {
-  books = resource<BookEntity[], unknown>({
-    loader: () =>
-      fetch('/api/books')
-        .then((res) => res.json())
-        .then((r: BooksApiResponse) => r.data),
-  });
+  store = inject(BookStore);
+  books = this.store.books;
 }
