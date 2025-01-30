@@ -22,7 +22,7 @@ import { BooksDataService } from './books.data';
 const bookProps = ['title', 'author', 'year'] as const;
 export type BookPropType = (typeof bookProps)[number];
 export type BookStoreState = {
-  sortProp: 'title' | 'author' | 'year';
+  sortProp: BookPropType;
   sortDir: 'asc' | 'desc';
 };
 export const BookStore = signalStore(
