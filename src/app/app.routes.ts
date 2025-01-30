@@ -32,6 +32,11 @@ export const routes: Routes = [
       import('./jeff-counter/counter.routes').then((r) => r.COUNTER_ROUTES),
   },
   {
+    path: 'books',
+    loadChildren: () =>
+      import('./books/books.routes').then((r) => r.BOOKS_ROUTES),
+  },
+  {
     path: '**',
     component: HomeComponent,
   },

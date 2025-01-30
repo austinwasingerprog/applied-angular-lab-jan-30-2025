@@ -90,10 +90,7 @@ type BookApiResponse = {
 })
 export class BooksComponent {
   books = resource<BookEntity[], unknown>({
-    loader: () =>
-      fetch("/api/books")
-        .then((res) => res.json())
-        .then((r) => r.data()),
+    loader: () => fetch("/api/books").then((res) => res.json()),
   });
 }
 ```
