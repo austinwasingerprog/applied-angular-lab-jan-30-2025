@@ -1,8 +1,9 @@
+import { DecimalPipe } from '@angular/common';
 import {
-  Component,
   ChangeDetectionStrategy,
-  resource,
+  Component,
   computed,
+  resource,
 } from '@angular/core';
 import { BookEntity } from '../types/BookEntity';
 import { BooksApiResponse } from '../types/BooksApiResponse';
@@ -10,10 +11,10 @@ import { BooksApiResponse } from '../types/BooksApiResponse';
 @Component({
   selector: 'app-books-stats',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [],
+  imports: [DecimalPipe],
   template: `<div class="stats shadow flex justify-center">
     <div class="stat">
-      <div class="stat-value">{{ numberOfBooks() }}</div>
+      <div class="stat-value">{{ numberOfBooks() | number }}</div>
       <div class="stat-title text-secondary">Total # of Books</div>
     </div>
     <div class="stat">
@@ -23,6 +24,10 @@ import { BooksApiResponse } from '../types/BooksApiResponse';
     <div class="stat">
       <div class="stat-value">{{ latestYearPublished() }}</div>
       <div class="stat-title text-accent">Latest Year Published</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">{{ averageNumberOfPages() | number }}</div>
+      <div class="stat-title text-amber-300">Average # of Pages</div>
     </div>
   </div>`,
   styles: ``,
@@ -48,5 +53,11 @@ export class BooksStatsComponent {
         .value()
         ?.slice()
         .sort((a, b) => b.year - a.year)?.[0].year,
+  );
+  averageNumberOfPages = computed(() =>
+    Math.round(
+      (this.books.value()?.reduce((acc, cur, i) => (acc += cur.year), 0) || 0) /
+        this.numberOfBooks(),
+    ),
   );
 }

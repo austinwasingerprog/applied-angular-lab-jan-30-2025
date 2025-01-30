@@ -10,12 +10,6 @@ import { BookEntity } from '../types/BookEntity';
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
       @for (book of books.value(); track $index) {
         <div class="card card-compact bg-neutral shadow-xl">
-          <figure>
-            <!-- <img
-          src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-          alt="Shoes"
-        /> -->
-          </figure>
           <div class="card-body">
             <h2 class="card-title italic text-white">{{ book.title }}</h2>
             <table class="border-separate">
