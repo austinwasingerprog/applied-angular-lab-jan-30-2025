@@ -1,74 +1,21 @@
 import { Component, ChangeDetectionStrategy, resource } from '@angular/core';
-
-export type BooksApiResponse = {
-  data: BookEntity[];
-};
-
-export type BookEntity = {
-  author: string;
-  country: string;
-  imageLink: string;
-  language: string;
-  link: string;
-  pages: number;
-  title: string;
-  year: number;
-  id: string;
-};
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-books',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [],
+  imports: [RouterLink, RouterOutlet, RouterLinkActive],
   template: `
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-      @for (book of books.value(); track $index) {
-        <div class="card card-compact bg-neutral shadow-xl">
-          <figure>
-            <!-- <img
-          src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-          alt="Shoes"
-        /> -->
-          </figure>
-          <div class="card-body">
-            <h2 class="card-title">{{ book.title }}</h2>
-            <table class="border-separate">
-              <tbody>
-                <tr>
-                  <th class="th">ID</th>
-                  <td>{{ book.id }}</td>
-                </tr>
-                <tr>
-                  <th class="th">Author</th>
-                  <td>{{ book.author }}</td>
-                </tr>
-                <tr>
-                  <th class="th">Year</th>
-                  <td>{{ book.year }}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      }
+    <div role="tablist" class="tabs tabs-boxed mb-4">
+      <a role="tab" class="tab" routerLinkActive="tab-active" routerLink="list"
+        >Library</a
+      >
+      <a role="tab" class="tab" routerLinkActive="tab-active" routerLink="stats"
+        >Statistics</a
+      >
     </div>
+    <router-outlet />
   `,
-  styles: `
-    th {
-      @apply bg-accent;
-    }
-
-    th,
-    td {
-      @apply border border-accent text-white p-1;
-    }
-  `,
+  styles: ``,
 })
-export class BooksComponent {
-  books = resource({
-    loader: () =>
-      fetch('/api/books')
-        .then((res) => res.json())
-        .then((r: BooksApiResponse) => r.data),
-  });
-}
+export class BooksComponent {}
