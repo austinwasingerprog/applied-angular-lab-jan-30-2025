@@ -4,7 +4,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   selector: 'app-home',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [],
-  template: ` <p>Welcome Home</p> `,
+  template: ` <p>Welcome Home Honey!</p> `,
   styles: ``,
 })
 export class HomeComponent {}
